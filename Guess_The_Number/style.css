@@ -1,0 +1,35 @@
+
+body{
+    background-color:#272626;
+    color:white;
+    text-align:center;
+}
+
+/* #newform{
+    text-align:center;
+} */
+
+#guess{
+    font-size: 45px;
+    margin:10px;
+    padding:10px;
+}
+
+.guessfield{
+    width:185px;
+    height:80px
+    mask-border-slice: initial;
+    font-size: xx-large;
+    margin:10px;    
+    padding:10px;
+    text-align:center;
+}
+
+.sub{
+    width:160px;
+    height:80px
+ font-size: large;
+ border-radius: 12px;
+ margin:10px;
+ padding:10px;
+}
