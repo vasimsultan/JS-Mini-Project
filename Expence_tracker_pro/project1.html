@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 80px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+           
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li.expense {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .expense button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .expense button:hover {
+            background-color: #d32f2f;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expense Tracker</h2>
+        <div>
+            <input type="text" placeholder="Expense Description" id="expenseDescription" />
+            <input type="number" step="0.01" placeholder="Expense Amount" id="expenseAmount" />
+            <button id="addExpenseBtn">Add Expense</button>
+        </div>
+        <h3>Expenses</h3>
+        <ul id="expenselist"></ul>
+        <h4>Total: $<span id="totalAmount">0</span></h4>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const expenseDescription = document.getElementById('expenseDescription');
+            const expenseAmount = document.getElementById('expenseAmount');
+            const addExpenseBtn = document.getElementById('addExpenseBtn');
+            const expenselist = document.getElementById('expenselist');
+            const totalAmount = document.getElementById('totalAmount');
+            let total = 0;
+
+            addExpenseBtn.addEventListener('click', () => {
+                const description = expenseDescription.value.trim();
+                const amount = Number(expenseAmount.value);
+
+                if (description === '' || isNaN(amount) || amount <= 0) {
+                    alert('Please enter valid description and amount');
+                    return;
+                }
+
+                const li = document.createElement('li');
+                li.className = 'expense';
+                li.textContent = `${description} : $${amount.toFixed(2)}`; // Correct usage of template literal
+
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.addEventListener('click', () => {
+                    total -= amount;
+                    totalAmount.textContent = total.toFixed(2);
+                    li.remove();
+                });
+
+                li.appendChild(removeBtn);
+                expenselist.appendChild(li);
+
+                total += amount;
+                totalAmount.textContent = total.toFixed(2);
+
+                expenseDescription.value = '';
+                expenseAmount.value = '';
+
+            });
+        });
+    </script>
+</body>
+</html>
